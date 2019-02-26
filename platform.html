@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Title of the document</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.2/ace.js"></script>
+</head>
+<style>
+
+html,body { margin:0; padding:0; height:100%; width:100%; overflow: hidden;}
+
+#editor {
+    top: 10px;
+    position: relative;
+    height: 100%;
+    width:33%;
+    display:inline-block;
+}
+#tutor {
+    top: 10px;
+    position: relative;
+    height: 100%;
+    width:33%;
+    display:inline-block;
+}
+
+#container {
+	height:100%;
+	width:auto;
+  white-space : wrap; 
+  overflow : hidden;
+  position:relative;
+}
+
+#iframe {
+	height:100%;
+	display:inline-block;
+	width:33%;
+}
+
+/* disable tag matching */
+.ace_editor .ace_marker-layer .ace_bracket { display: none }
+
+
+</style>
+<body onload='ready()'>
+    <div id='container'>
+            <div id='tutor'>
+        <h1>What is HTML?</h1>
+        <p>HTML is the standard markup language for creating Web pages.
+        
+                HTML stands for Hyper Text Markup Language
+                HTML describes the structure of Web pages using markup
+                HTML elements are the building blocks of HTML pages
+                HTML elements are represented by tags
+                HTML tags label pieces of content such as "heading", "paragraph", "table", and so on
+                Browsers do not display the HTML tags, but use them to render the content of the page</p>
+      
+            </div>
+            
+            <div id='editor'>
+
+        </div>
+        <iframe id='iframe' frameborder="0">
+            
+        </iframe>
+
+    </div>
+<script>
+    function setupEditor(){
+
+
+    }function update()
+{
+	var idoc = document.getElementById('iframe').contentWindow.document;
+
+	idoc.open();
+	idoc.write(editor.getValue());
+	idoc.close();
+}
+
+function setupEditor()
+{
+  window.editor = ace.edit("editor");
+  editor.setTheme("ace/theme/monokai");
+  editor.getSession().setMode("ace/mode/html");
+  editor.setValue(`<!DOCTYPE html>
+<html>
+<head>
+<title>Page Title</title>
+</head>
+<body>
+
+<h1>My First Heading</h1>
+<p>My first paragraph.</p>
+
+</body>
+</html>`,1); //1 = moves cursor to end
+
+  editor.getSession().on('change', function() {
+    update();
+  });
+
+  editor.focus();
+  
+  
+  editor.setOptions({
+    fontSize: "16pt",
+    showLineNumbers: false,
+    showGutter: false,
+    vScrollBarAlwaysVisible:true,
+    enableBasicAutocompletion: false, enableLiveAutocompletion: false
+  });
+
+  editor.setShowPrintMargin(false);
+  editor.setBehavioursEnabled(false);
+}
+
+setupEditor();
+update();
+  
+function ready(){
+    setupEditor();
+    update();
+}
+</script>
+</body>
+
+</html>
